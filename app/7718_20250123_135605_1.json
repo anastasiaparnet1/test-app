@@ -1,0 +1,501 @@
+{
+  "summary": {
+    "job_start_time": "2025-01-23T13:56:05.278-08:00",
+    "report_dir": "C:/Users/palak_idea/awetest/Vendor/shamisen-lite/tmp/7718/default_script/project_assets/../../awetest_report",
+    "time_stamp": "20250123_135605",
+    "time_stamp_log": "01_23_2025_01_56_278",
+    "test_job_id": 5969,
+    "test_run_id": 7718,
+    "job_end_time": "2025-01-23T13:56:15.761-08:00"
+  },
+  "logs": [
+    {
+      "result_counter": { "pass": 0, "fail": 115 },
+      "test_start_time": "2025-01-23T13:56:07.731-08:00",
+      "table_name": "Accounts table",
+      "test_case_name": "Accounts table",
+      "test_case_id": "499",
+      "test_run_id": "7718",
+      "query_hash": {
+        "source_file": false,
+        "target_file": false,
+        "source_count": "SELECT count(*) FROM  fat_free_crm_production.z_accounts",
+        "target_count": "SELECT count(*) FROM  fat_free_crm_production.accounts",
+        "source_data": "select * from fat_free_crm_production.z_accounts",
+        "target_data": "select * from fat_free_crm_production.accounts",
+        "format_transform": true,
+        "format_transform_rules": "{}"
+      },
+      "source_data_count": 115,
+      "target_data_count": 116,
+      "data_check_start_time": "2025-01-23T13:56:10.262-08:00",
+      "data_mismatch": [
+        {
+          "INDEX": 1,
+          "DB": "Target Record",
+          "ID": 1,
+          "user_id": 12,
+          "name": "Harris-McDermott",
+          "access": "Private",
+          "website": "https://awetest.com",
+          "mismatch": []
+        }
+      ],
+      "data_check_end_time": "2025-01-23T13:56:10.934-08:00",
+      "data_check_time_taken": 0.672,
+      "test_end_time": "2025-01-23T13:56:10.981-08:00"
+    },
+    {
+      "result_counter": { "pass": 0, "fail": 115 },
+      "test_start_time": "2025-01-23T13:56:10.981-08:00",
+      "table_name": "Accounts table Dup",
+      "test_case_name": "Accounts table Dup",
+      "test_case_id": "529",
+      "test_run_id": "7718",
+      "query_hash": {
+        "source_file": false,
+        "target_file": false,
+        "source_count": "SELECT count(*) FROM  fat_free_crm_production.z_accounts",
+        "target_count": "SELECT count(*) FROM  fat_free_crm_production.accounts",
+        "source_data": "select * from fat_free_crm_production.z_accounts",
+        "target_data": "select * from fat_free_crm_production.accounts",
+        "format_transform": true,
+        "format_transform_rules": "{}"
+      },
+      "source_data_count": 115,
+      "target_data_count": 116,
+      "data_check_start_time": "2025-01-23T13:56:12.887-08:00",
+      "data_mismatch": [
+        {
+          "INDEX": 1,
+          "DB": "Source Record",
+          "ID": 101,
+          "user_id": 5001,
+          "name": "Harris-McDermott",
+          "access": "Private",
+          "website": "https://awetest.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 1,
+          "DB": "Target Record",
+          "ID": 102,
+          "user_id": 5001,
+          "name": "Harris-McDermott",
+          "access": "Public",
+          "website": "https://awetest.com",
+          "mismatch": ["ID", "access"]
+        },
+        {
+          "INDEX": 2,
+          "DB": "Source Record",
+          "ID": 201,
+          "user_id": 6002,
+          "name": "Smith & Co",
+          "access": "Public",
+          "website": "https://example.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 2,
+          "DB": "Target Record",
+          "ID": 201,
+          "user_id": 6003,
+          "name": "Smith & Company",
+          "access": "Public",
+          "website": "https://example.com",
+          "mismatch": ["user_id", "name"]
+        },
+        {
+          "INDEX": 3,
+          "DB": "Source Record",
+          "ID": 301,
+          "user_id": 7005,
+          "name": "Tech Innovations",
+          "access": "Private",
+          "website": "https://techinnovations.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 3,
+          "DB": "Target Record",
+          "ID": 301,
+          "user_id": 7005,
+          "name": "Tech Innovations",
+          "access": "Private",
+          "website": "https://techinnovations.io",
+          "mismatch": ["website"]
+        },
+
+        {
+          "INDEX": 4,
+          "DB": "Source Record",
+          "ID": 401,
+          "user_id": 8007,
+          "name": "Future Corp",
+          "access": "Public",
+          "website": "https://futurecorp.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 4,
+          "DB": "Target Record",
+          "ID": 402,
+          "user_id": 8007,
+          "name": "Future Corp Ltd.",
+          "access": "Public",
+          "website": "https://futurecorp.com",
+          "mismatch": ["ID", "name"]
+        },
+        {
+          "INDEX": 5,
+          "DB": "Source Record",
+          "ID": 501,
+          "user_id": 9008,
+          "name": "Global Solutions",
+          "access": "Private",
+          "website": "https://globalsol.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 5,
+          "DB": "Target Record",
+          "ID": 501,
+          "user_id": 9009,
+          "name": "Global Solutions",
+          "access": "Public",
+          "website": "https://globalsol.com",
+          "mismatch": ["user_id", "access"]
+        },
+        {
+          "INDEX": 6,
+          "DB": "Source Record",
+          "ID": 601,
+          "user_id": 10010,
+          "name": "Bright Ideas",
+          "access": "Public",
+          "website": "https://brightideas.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 6,
+          "DB": "Target Record",
+          "ID": 601,
+          "user_id": 10010,
+          "name": "Bright Idea Inc.",
+          "access": "Public",
+          "website": "https://brightideas.com",
+          "mismatch": ["name"]
+        },
+        {
+          "INDEX": 7,
+          "DB": "Source Record",
+          "ID": 701,
+          "user_id": 11011,
+          "name": "Quantum Enterprises",
+          "access": "Private",
+          "website": "https://quantumenterprises.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 7,
+          "DB": "Target Record",
+          "ID": 701,
+          "user_id": 11011,
+          "name": "Quantum Enterprises",
+          "access": "Private",
+          "website": "https://quantumco.com",
+          "mismatch": ["website"]
+        },
+        {
+          "INDEX": 8,
+          "DB": "Source Record",
+          "ID": 801,
+          "user_id": 12012,
+          "name": "Visionary Tech",
+          "access": "Public",
+          "website": "https://visionarytech.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 8,
+          "DB": "Target Record",
+          "ID": 801,
+          "user_id": 12012,
+          "name": "Visionary Technologies",
+          "access": "Public",
+          "website": "https://visionarytech.com",
+          "mismatch": ["name"]
+        },
+        {
+          "INDEX": 9,
+          "DB": "Source Record",
+          "ID": 901,
+          "user_id": 13013,
+          "name": "Innovate Now",
+          "access": "Private",
+          "website": "https://innow.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 9,
+          "DB": "Target Record",
+          "ID": 901,
+          "user_id": 13014,
+          "name": "Innovate Now",
+          "access": "Public",
+          "website": "https://innow.com",
+          "mismatch": ["user_id", "access"]
+        },
+        {
+          "INDEX": 10,
+          "DB": "Source Record",
+          "ID": 1001,
+          "user_id": 14015,
+          "name": "Skyline Solutions",
+          "access": "Public",
+          "website": "https://skyline.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 10,
+          "DB": "Target Record",
+          "ID": 1001,
+          "user_id": 14015,
+          "name": "Skyline Solution",
+          "access": "Public",
+          "website": "https://skyline.com",
+          "mismatch": ["name"]
+        },
+
+        {
+          "INDEX": 11,
+          "DB": "Source Record",
+          "ID": 1101,
+          "user_id": 15016,
+          "name": "NextGen Systems",
+          "access": "Private",
+          "website": "https://nextgensys.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 11,
+          "DB": "Target Record",
+          "ID": 1102,
+          "user_id": 15016,
+          "name": "NextGen System",
+          "access": "Private",
+          "website": "https://nextgensys.com",
+          "mismatch": ["ID", "name"]
+        },
+        {
+          "INDEX": 12,
+          "DB": "Source Record",
+          "ID": 1201,
+          "user_id": 16017,
+          "name": "Alpha Corp",
+          "access": "Public",
+          "website": "https://alphacorp.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 12,
+          "DB": "Target Record",
+          "ID": 1201,
+          "user_id": 16017,
+          "name": "Alpha Corporation",
+          "access": "Public",
+          "website": "https://alphacorp.net",
+          "mismatch": ["name", "website"]
+        },
+        {
+          "INDEX": 13,
+          "DB": "Source Record",
+          "ID": 1301,
+          "user_id": 17018,
+          "name": "Beta Industries",
+          "access": "Private",
+          "website": "https://betaind.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 13,
+          "DB": "Target Record",
+          "ID": 1301,
+          "user_id": 17019,
+          "name": "Beta Industries",
+          "access": "Public",
+          "website": "https://betaind.com",
+          "mismatch": ["user_id", "access"]
+        },
+        {
+          "INDEX": 14,
+          "DB": "Source Record",
+          "ID": 1401,
+          "user_id": 18020,
+          "name": "Delta Networks",
+          "access": "Public",
+          "website": "https://deltanetworks.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 14,
+          "DB": "Target Record",
+          "ID": 1401,
+          "user_id": 18020,
+          "name": "Delta Net",
+          "access": "Public",
+          "website": "https://deltanetworks.com",
+          "mismatch": ["name"]
+        },
+        {
+          "INDEX": 15,
+          "DB": "Source Record",
+          "ID": 1501,
+          "user_id": 19021,
+          "name": "Gamma Technologies",
+          "access": "Private",
+          "website": "https://gammatech.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 15,
+          "DB": "Target Record",
+          "ID": 1501,
+          "user_id": 19021,
+          "name": "Gamma Tech",
+          "access": "Private",
+          "website": "https://gammatech.org",
+          "mismatch": ["name", "website"]
+        },
+        {
+          "INDEX": 16,
+          "DB": "Source Record",
+          "ID": 1601,
+          "user_id": 20022,
+          "name": "Epsilon Solutions",
+          "access": "Public",
+          "website": "https://epsilonsol.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 16,
+          "DB": "Target Record",
+          "ID": 1602,
+          "user_id": 20022,
+          "name": "Epsilon Solutions",
+          "access": "Private",
+          "website": "https://epsilonsol.com",
+          "mismatch": ["ID", "access"]
+        },
+        {
+          "INDEX": 17,
+          "DB": "Source Record",
+          "ID": 1701,
+          "user_id": 21023,
+          "name": "Zeta Enterprises",
+          "access": "Private",
+          "website": "https://zetaenterprises.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 17,
+          "DB": "Target Record",
+          "ID": 1701,
+          "user_id": 21023,
+          "name": "Zeta Enterprises",
+          "access": "Private",
+          "website": "https://zeta.com",
+          "mismatch": ["website"]
+        },
+        {
+          "INDEX": 18,
+          "DB": "Source Record",
+          "ID": 1801,
+          "user_id": 22024,
+          "name": "Theta Dynamics",
+          "access": "Public",
+          "website": "https://thetadynamics.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 18,
+          "DB": "Target Record",
+          "ID": 1801,
+          "user_id": 22025,
+          "name": "Theta Dynamic",
+          "access": "Public",
+          "website": "https://thetadynamics.com",
+          "mismatch": ["user_id", "name"]
+        },
+        {
+          "INDEX": 19,
+          "DB": "Source Record",
+          "ID": 1901,
+          "user_id": 23026,
+          "name": "Omega Ltd.",
+          "access": "Private",
+          "website": "https://omegaltd.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 19,
+          "DB": "Target Record",
+          "ID": 1901,
+          "user_id": 23026,
+          "name": "Omega Limited",
+          "access": "Private",
+          "website": "https://omegaltd.com",
+          "mismatch": ["name"]
+        },
+        {
+          "INDEX": 20,
+          "DB": "Source Record",
+          "ID": 2001,
+          "user_id": 24027,
+          "name": "Lambda Solutions",
+          "access": "Public",
+          "website": "https://lambdasol.com",
+          "mismatch": []
+        },
+        {
+          "INDEX": 20,
+          "DB": "Target Record",
+          "ID": 2001,
+          "user_id": 24027,
+          "name": "Lambda Solutions",
+          "access": "Public",
+          "website": "https://lambdasolutions.com",
+          "mismatch": ["website"]
+        }
+      ],
+      "data_check_end_time": "2025-01-23T13:56:13.418-08:00",
+      "data_check_time_taken": 0.531,
+      "test_end_time": "2025-01-23T13:56:13.450-08:00"
+    },
+    {
+      "result_counter": { "pass": 116, "fail": 0 },
+      "test_start_time": "2025-01-23T13:56:13.450-08:00",
+      "table_name": "Account test P",
+      "test_case_name": "Account test P",
+      "test_case_id": "530",
+      "test_run_id": "7718",
+      "query_hash": {
+        "source_file": false,
+        "target_file": false,
+        "source_count": "SELECT count(*) FROM  fat_free_crm_production.accounts",
+        "target_count": "SELECT count(*) FROM  fat_free_crm_production.accounts",
+        "source_data": "select * from fat_free_crm_production.accounts",
+        "target_data": "select * from fat_free_crm_production.accounts",
+        "format_transform": true,
+        "format_transform_rules": "{}"
+      },
+      "source_data_count": 116,
+      "target_data_count": 116,
+      "data_check_start_time": "2025-01-23T13:56:15.370-08:00",
+      "data_check_end_time": "2025-01-23T13:56:15.729-08:00",
+      "data_check_time_taken": 0.359,
+      "test_end_time": "2025-01-23T13:56:15.761-08:00"
+    }
+  ]
+}

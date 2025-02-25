@@ -39,7 +39,7 @@ module.exports = {
           ['^(@nestjs|[^@.]+)'],
           // Packages `react` related packages come first.
           // Internal packages.
-          ['^(@server|@app([./]))(/.*|$)', '^\\.\\.(?!/?$)', '^\\.\\./?$'],
+          ['^(@server|@redux([./]))(/.*|$)', '^\\.\\.(?!/?$)', '^\\.\\./?$'],
           // Other relative imports. Put same-folder imports and `.` last.
           ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           // Style imports.

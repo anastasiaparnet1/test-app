@@ -1,4 +1,4 @@
-# Report to React Router!
+# Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
 
@@ -56,16 +56,16 @@ To build and run using Docker:
 
 ```bash
 # For npm
-docker build -t my-app .
+docker build -t my-redux .
 
 # For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
+docker build -f Dockerfile.pnpm -t my-redux .
 
 # For bun
-docker build -f Dockerfile.bun -t my-app .
+docker build -f Dockerfile.bun -t my-redux .
 
 # Run the container
-docker run -p 3000:3000 my-app
+docker run -p 3000:3000 my-redux
 ```
 
 The containerized application can be deployed to any platform that supports Docker, including:

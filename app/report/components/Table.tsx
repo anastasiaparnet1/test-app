@@ -1,12 +1,15 @@
-import report from '../7718_20250123_135605_1.json'
+import { ExpandableContent } from './ExpandableContent';
+import { useAppSelector } from '~/redux/store';
 
 export const Table = (props: any) => {
-    return <table border={2} className={'border-2 '}>
-        {report.logs.map(({ test_case_name, test_run_id}) => {
-            return <tr key={test_run_id} className={'border-2'}>
-                 <td>Test case name: {test_case_name}</td>
-            </tr>
-        })
-        }
+  const testReport = useAppSelector((state) => state.report.report);
+  return (
+    <table className={'border w-full border-gray-100'}>
+      <tbody>
+        {Object.entries(testReport).map(([id, testLog]) => {
+          return <ExpandableContent key={id} props={testLog} />;
+        })}
+      </tbody>
     </table>
-}
+  );
+};
