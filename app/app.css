@@ -8,8 +8,14 @@
   --color-success-2: rgba(52, 115, 83, 1);
   --color-success: rgba(154, 204, 179, 1);
   --color-black-100: #333333;
-  --color-gray-150:rgba(0, 0, 0, 0.15);
-  --color-gray-160: #F9FBFC
+  --color-gray-150: rgba(0, 0, 0, 0.15);
+  --color-gray-160: #f9fbfc;
+  --color-gray-250: #e0e2e3;
+  --color-gray-350: #d9d9d9;
+  --color-gray-550: #6b7280;
+  --color-gray-450: rgba(136, 136, 136, 1);
+  --color-black-150: rgba(61, 61, 61, 1);
+  --color-blue-250: rgba(5, 174, 238, 1)
 }
 
 html,

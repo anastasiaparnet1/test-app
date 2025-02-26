@@ -1,6 +1,9 @@
 import { Chip } from './Chips';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { ExpandedContent } from '~/report/components/ExpandedContent';
+import { Event, eventemmiiter } from '~/report/eventemmiiter';
+import { useAppSelector } from '~/redux/store';
+import {CheckedIcon} from "~/report/components/icons/CheckedIcon";
 export interface QueryHash {
   source_file: boolean;
   target_file: boolean;
@@ -48,50 +51,90 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
   props: {
     result_counter: { fail, pass },
     test_case_name,
+    test_case_id,
     data_mismatch,
+    query_hash,
+    source_data_count,
+    target_data_count,
+
   },
 }) => {
+  const filter = useAppSelector((state) => state.report.filters);
   const [expand, setExpand] = useState(false);
   const onClick = () => {
     setExpand((prevState) => !prevState);
   };
-
+  useEffect(() => {
+    eventemmiiter.on(Event.EXPAND, (globalExpand: boolean) =>
+      setExpand(globalExpand),
+    );
+    return () => {
+      eventemmiiter.removeAllListeners(Event.EXPAND);
+    };
+  });
+  const isCountFailed = target_data_count === source_data_count;
+  const isDataFailed = data_mismatch?.some((el) => el.mismatch.length);
+  const hide =
+    (filter === 'failed count' && isCountFailed) ||
+    (filter === 'failed data' && isDataFailed);
   return (
-    <tr className={'border border-gray-100 '}>
+    <tr
+      className={`border w-full border-gray-100 ${expand ? 'bg-gray-50' : ''} ${
+        hide ? 'hidden' : ''
+      }`}
+    >
       <td>
         <div
-          className={'flex flex-row  items-center gap-2 p-2 h-60px'}
+          className={'flex flex-col lg:flex-row  justify-between items-center gap-2 px-3 py-2 lg:h-[60px] pr-2 '}
           onClick={onClick}
         >
-          <svg
-            width="6"
-            height="10"
-            viewBox="0 0 6 10"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={`${expand ? 'rotate-90' : ''}`}
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M0.469673 9.53033C0.176779 9.23744 0.176779 8.76256 0.469672 8.46967L3.93934 5L0.46967 1.53033C0.176777 1.23744 0.176777 0.762563 0.46967 0.46967C0.762564 0.176777 1.23744 0.176777 1.53033 0.46967L5.53033 4.46967C5.82322 4.76256 5.82322 5.23744 5.53033 5.53033L1.53033 9.53033C1.23744 9.82322 0.762566 9.82322 0.469673 9.53033Z"
-              fill="#3D3D3D"
+          <div className={'flex flex-row  items-center gap-2 px-3 py-2 h-60px'}>
+            <svg
+              width="6"
+              height="10"
+              viewBox="0 0 6 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className={`${expand ? 'rotate-90' : ''}`}
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M0.469673 9.53033C0.176779 9.23744 0.176779 8.76256 0.469672 8.46967L3.93934 5L0.46967 1.53033C0.176777 1.23744 0.176777 0.762563 0.46967 0.46967C0.762564 0.176777 1.23744 0.176777 1.53033 0.46967L5.53033 4.46967C5.82322 4.76256 5.82322 5.23744 5.53033 5.53033L1.53033 9.53033C1.23744 9.82322 0.762566 9.82322 0.469673 9.53033Z"
+                fill="#3D3D3D"
+              />
+            </svg>
+
+            <Chip
+              value={fail !== 0 ? 'Fail' : 'Passed'}
+              type={fail !== 0 ? 'fail' : 'success'}
             />
-          </svg>
 
-          <Chip
-            value={fail !== 0 ? 'Fail' : 'Passed'}
-            type={fail !== 0 ? 'fail' : 'success'}
-          />
-
-          <p className={'text-sm'}> Test case name: {test_case_name}</p>
+            <p className={'text-sm'}> Test case name: {test_case_name}</p>
+          </div>
+          <div className={'text-xs border border-gray-150 rounded-2xl flex ' }>
+            <p className={'font-semibold flex py-[7px] px-3 gap-1 border-r border-gray-150 '}>
+              <CheckedIcon /> Data Check{' '}
+            </p>
+            <p className={'py-[7px] px-3 border-r border-gray-150 '}>
+              Source: <span className={'font-semibold'}> {source_data_count}</span>
+            </p>
+            <p className={'py-[7px] px-3'}>
+              Target: <span className={'font-semibold'}> {target_data_count}</span>
+            </p>
+          </div>
         </div>
+
         <div
           className={`${
             expand ? 'h-fit' : ' h-0'
-          } flex flex-col overflow-hidden  gap-2 `}
+          } flex flex-col overflow-hidden  gap-2 w-full`}
         >
-          <ExpandedContent data_mismatch={data_mismatch} />
+          <ExpandedContent
+            data_mismatch={data_mismatch}
+            testCaseId={test_case_id}
+            query_hash={query_hash}
+          />
         </div>
       </td>
     </tr>
