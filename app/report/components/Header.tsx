@@ -37,7 +37,7 @@ export const Header = () => {
     >
       <div className={'flex  flex-col lg:flex-row '}>
         <h1 className={'w-fit text-[22px] font-bold min-w-[200px]'}>Data Report </h1>
-        <div className={'text-xs w-full flex  flex-wrap items-start lg:justify-end gap-4 flex-grow'}>
+        <div className={'text-xs w-full flex lg:flex-row items-start lg:justify-end gap-4 flex-grow'}>
           <p className={'text-gray-450 flex gap-1 py-1.5'}>
             <svg
               width="18"

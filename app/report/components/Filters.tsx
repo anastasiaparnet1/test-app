@@ -9,7 +9,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
   const counter = useAppSelector(
     (state) => state.report.report[testId].result_counter,
   );
-  const filter = useAppSelector((state) => state.report.filters);
+  const filter = useAppSelector((state) => state.report.filters[testId]);
   return (
     <div
       className={
@@ -18,7 +18,9 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
     >
       <div className={'flex gap-3 text-xs'}>
         <button
-          onClick={() => dispatch(setFilter({ filter: 'all', id: testId }))}
+          onClick={() =>
+            dispatch(setFilter({ filter: 'all', id: testId, global: false }))
+          }
           className={`border border-gray-150 rounded-lg py-2.5 px-3 ${
             filter !== 'all' ? 'bg-gray-160 text-gray-500 ' : 'bg-white'
           }`}
@@ -26,7 +28,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
           All Checks {counter.fail + counter.pass}
         </button>
         <button
-          onClick={() => dispatch(setFilter({ filter: 'failed', id: testId }))}
+          onClick={() => dispatch(setFilter({ filter: 'failed', id: testId, global: false }))}
           className={`flex items-center gap-1 border border-gray-150 rounded-lg py-2.5 px-3 ${
             filter !== 'failed' ? 'bg-gray-160 text-gray-500 ' : 'bg-white'
           }`}
@@ -35,7 +37,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
           <span>Failed Only {counter.fail}</span>
         </button>
         <button
-          onClick={() => dispatch(setFilter({ filter: 'skipped', id: testId }))}
+          onClick={() => dispatch(setFilter({ filter: 'skipped', id: testId, global:false }))}
           className={` flex items-center gap-1 border border-gray-150 rounded-lg py-2.5 px-3 ${
             filter !== 'skipped' ? 'bg-gray-160 text-gray-500 ' : 'bg-white '
           }`}

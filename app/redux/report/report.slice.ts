@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { TestReport } from '~/report/components/ExpandableContent';
 import report from '../../7718_20250123_135605_1.json';
 import { columnsNumbers, getColumns } from '~/redux/report/utils';
+import { Filters } from '~/report/components/Filters';
 export type Filter =
   | 'all'
   | 'skipped'
@@ -22,18 +23,20 @@ type JobSummary = {
 
 export const initialState: {
   report: { [key: string]: TestReport };
-  filters: Filter;
+  filters: { [key: string]: Filter };
+  globalFilter: Filter;
   summary: JobSummary;
   columns: { [key: string]: FailureColumn[] };
 } = {
   report: report.logs.reduce((acc, log) => {
     return { ...acc, [log.test_case_id]: log };
   }, {}),
-  filters: 'all',
+  filters: report.logs.reduce((el, next)=> ({ ...el, [next.test_case_id] : 'all'}), {}),
+  globalFilter: 'all',
   summary: report.summary,
   columns: getColumns(),
 };
-console.log(getColumns());
+
 export const reportSlice = createSlice({
   name: 'report',
   initialState,
@@ -60,10 +63,16 @@ export const reportSlice = createSlice({
     },
     setFilter: (
       state,
-      { payload }: PayloadAction<{ filter: Filter; id: string }>,
+      {
+        payload,
+      }: PayloadAction<{ filter: Filter; id: string; global: boolean }>,
     ) => {
-      state.filters = payload.filter;
 
+      if (payload.global) {
+        state.globalFilter = payload.filter;
+        state.filters[payload.id] = payload.filter;
+      }
+      else if (!payload.global)  state.filters[payload.id] = payload.filter;
       if (payload.filter === 'failed') {
         state.report[payload.id].data_mismatch = initialState.report[
           payload.id

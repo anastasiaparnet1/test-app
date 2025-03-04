@@ -1,12 +1,11 @@
 import { setFilter } from '~/redux/report/report.slice';
 import { useAppDispatch, useAppSelector } from '~/redux/store';
-import type { ResultCounter } from '~/report/components/ExpandableContent';
 import { Event, eventemmiiter } from '~/report/eventemmiiter';
 import { useEffect, useState } from 'react';
 
 export const GlobalFilter = () => {
   const dispatch = useAppDispatch();
-  const filter = useAppSelector((state) => state.report.filters);
+  const filter = useAppSelector((state) => state.report.globalFilter);
 
   const reports = useAppSelector((state) => state.report.report);
 
@@ -33,12 +32,18 @@ export const GlobalFilter = () => {
 
   return (
     <div>
-      <div className={'flex flex-col  py-2 justify-between py-2 px-3 lg:flex-row gap-2'}>
+      <div
+        className={
+          'flex flex-col  py-2 justify-between py-2 px-3 lg:flex-row gap-2'
+        }
+      >
         <div className={'flex gap-3 flex-col text-xs lg:flex-row'}>
           <button
             onClick={() => {
               for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'all', id: testCaseId }));
+                dispatch(
+                  setFilter({ filter: 'all', id: testCaseId, global: true }),
+                );
               }
             }}
             className={`border rounded-lg py-2.5 px-3 ${
@@ -52,13 +57,13 @@ export const GlobalFilter = () => {
           <button
             onClick={() => {
               for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'failed', id: testCaseId }));
+                dispatch(setFilter({ filter: 'failed', id: testCaseId, global: true }));
               }
             }}
             className={`flex items-center gap-1 border rounded-lg py-2.5 px-3 ${
               filter !== 'failed'
-                  ? 'bg-gray-160 text-gray-500  border-gray-150 '
-                  : 'bg-blue-250 text-white  border-blue-250'
+                ? 'bg-gray-160 text-gray-500  border-gray-150 '
+                : 'bg-blue-250 text-white  border-blue-250'
             }`}
           >
             <svg
@@ -102,13 +107,13 @@ export const GlobalFilter = () => {
           <button
             onClick={() => {
               for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'skipped', id: testCaseId }));
+                dispatch(setFilter({ filter: 'skipped', id: testCaseId, global: true }));
               }
             }}
             className={` flex items-center gap-1 border rounded-lg py-2.5 px-3 ${
               filter !== 'skipped'
-                  ? 'bg-gray-160 text-gray-500  border-gray-150 '
-                  : 'bg-blue-250 text-white  border-blue-250'
+                ? 'bg-gray-160 text-gray-500  border-gray-150 '
+                : 'bg-blue-250 text-white  border-blue-250'
             }`}
           >
             <svg
@@ -145,13 +150,13 @@ export const GlobalFilter = () => {
           <button
             onClick={() => {
               for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'failed count', id: testCaseId }));
+                dispatch(setFilter({ filter: 'failed count', id: testCaseId, global: true }));
               }
             }}
             className={` flex items-center gap-1 border  rounded-lg py-2.5 px-3 ${
               filter !== 'failed count'
-                  ? 'bg-gray-160 text-gray-500  border-gray-150 '
-                  : 'bg-blue-250 text-white  border-blue-250'
+                ? 'bg-gray-160 text-gray-500  border-gray-150 '
+                : 'bg-blue-250 text-white  border-blue-250'
             }`}
           >
             <span>Failed Count {counter.failedCount}</span>
@@ -159,13 +164,13 @@ export const GlobalFilter = () => {
           <button
             onClick={() => {
               for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'failed data', id: testCaseId }));
+                dispatch(setFilter({ filter: 'failed data', id: testCaseId , global: true}));
               }
             }}
             className={` flex items-center gap-1 border rounded-lg py-2.5 px-3 ${
               filter !== 'failed data'
-                  ? 'bg-gray-160 text-gray-500  border-gray-150 '
-                  : 'bg-blue-250 text-white  border-blue-250'
+                ? 'bg-gray-160 text-gray-500  border-gray-150 '
+                : 'bg-blue-250 text-white  border-blue-250'
             }`}
           >
             <span>Failed Data {counter.failedData}</span>
