@@ -75,8 +75,8 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
   const isCountFailed = target_data_count === source_data_count;
   const isDataFailed = data_mismatch?.some((el) => el.mismatch.length);
   const hide =
-    (filter === 'failed count' && isCountFailed) ||
-    (filter === 'failed data' && isDataFailed);
+    (filter[test_case_id] === 'failed count' && isCountFailed) ||
+    (filter[test_case_id] === 'failed data' && isDataFailed);
   return (
     <tr
       className={`border w-full border-gray-100 ${expand ? 'bg-gray-50' : ''} ${

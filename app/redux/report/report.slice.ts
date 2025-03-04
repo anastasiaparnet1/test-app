@@ -31,7 +31,7 @@ export const initialState: {
   report: report.logs.reduce((acc, log) => {
     return { ...acc, [log.test_case_id]: log };
   }, {}),
-  filters: report.logs.reduce((el, next)=> ({ ...el, [next.test_case_id] : 'all'}), {}),
+  filters: report.logs.reduce((el, next)=> ({ ...el, [next.test_case_id] : 'all' }), {}),
   globalFilter: 'all',
   summary: report.summary,
   columns: getColumns(),
