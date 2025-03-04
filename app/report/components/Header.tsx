@@ -38,7 +38,7 @@ export const Header = () => {
       <div className={'flex  flex-col lg:flex-row '}>
         <h1 className={'w-fit text-[22px] font-bold min-w-[200px]'}>Data Report </h1>
         <div className={'text-xs w-full flex-col flex lg:flex-row items-start lg:justify-end gap-4 flex-grow'}>
-          <p className={'text-gray-450 flex gap-1 py-1.5'}>
+          <p className={'text-gray-450 dark:text-white flex gap-1 py-1.5'}>
             <svg
               width="18"
               height="18"
@@ -76,18 +76,18 @@ export const Header = () => {
               </defs>
             </svg>
             <span className={'w-fit]'}>Total Time: </span>
-            <span className={'text-black-100'}> {getDurationString()}</span>
+            <span className={'text-black-100  dark:text-gray-400'}> {getDurationString()}</span>
           </p>
 
-          <p className={'text-gray-450 py-1.5'}>
+          <p className={'text-gray-450 dark:text-white py-1.5'}>
             Job ID:{' '}
-            <span className={'text-black-100'}> {summary.test_job_id}</span>
+            <span className={'text-black-100  dark:text-gray-400'}> {summary.test_job_id}</span>
           </p>
           <p
-            className={'text-gray-450 flex items-center justify-center py-1.5'}
+            className={'text-gray-450 dark:text-white  flex items-center justify-center py-1.5'}
           >
             Run ID:{' '}
-            <span className={'text-black-100'}> {summary.test_run_id}</span>
+            <span className={'text-black-100  dark:text-gray-400'}> {summary.test_run_id}</span>
           </p>
           <button
             className={
@@ -138,7 +138,7 @@ export const Header = () => {
               </defs>
             </svg>
 
-            <span className={'text-black-100'}>
+            <span className={'text-black-100  dark:text-white '}>
               Date:{' '}
               {moment(summary.job_start_time).format('MM/DD/YYYY [@] hh:mm A')}
             </span>
@@ -149,7 +149,7 @@ export const Header = () => {
         <div className={'flex flex-col gap-1'}>
           <p className={'text-gray-450 uppercase text-xs'}>Source Database</p>
 
-          <p className={'text-black-100 text-sm flex gap-1'}>
+          <p className={'text-black-100 dark:text-white text-sm flex gap-1'}>
             <SourceIcon /> DatabaseName1
           </p>
         </div>
@@ -158,7 +158,7 @@ export const Header = () => {
             Source Environment
           </p>
 
-          <p className={'text-black-100 text-sm flex gap-1'}>
+          <p className={'text-black-100 dark:text-white text-sm flex gap-1'}>
             <SourceIcon />
             EnvironmentName1
           </p>
@@ -166,7 +166,7 @@ export const Header = () => {
         <div className={'flex flex-col gap-1 text-sm'}>
           <p className={'text-gray-450 uppercase text-xs'}>TARGET Database</p>
 
-          <p className={'text-black-100 text-sm flex gap-1'}>
+          <p className={'text-black-100 dark:text-white text-sm flex gap-1'}>
             <TargetIcon /> DatabaseName1
           </p>
         </div>
@@ -175,7 +175,7 @@ export const Header = () => {
             TARGET Environment
           </p>
 
-          <p className={'text-black-100 text-sm flex gap-1'}>
+          <p className={'text-black-100 dark:text-white text-sm flex gap-1'}>
             <TargetIcon /> EnvironmentName1
           </p>
         </div>

@@ -1,4 +1,4 @@
-import { setFilter } from '~/redux/report/report.slice';
+import {expand, setFilter} from '~/redux/report/report.slice';
 import { useAppDispatch, useAppSelector } from '~/redux/store';
 import { Event, eventemmiiter } from '~/report/eventemmiiter';
 import { useEffect, useState } from 'react';
@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export const GlobalFilter = () => {
   const dispatch = useAppDispatch();
   const filter = useAppSelector((state) => state.report.globalFilter);
-
+const expanded = useAppSelector(state => state.report.expand)
   const reports = useAppSelector((state) => state.report.report);
 
   const counter = Object.values(reports).reduce(
@@ -25,10 +25,7 @@ export const GlobalFilter = () => {
     },
     { fail: 0, pass: 0, failedCount: 0, failedData: 0 },
   );
-  const [expand, setExpand] = useState(false);
-  useEffect(() => {
-    eventemmiiter.emit(Event.EXPAND, expand);
-  }, [expand]);
+  const [expandedGlobal, setExpand] = useState(false);
 
   return (
     <div>
@@ -179,25 +176,30 @@ export const GlobalFilter = () => {
 
         <button
           onClick={() => {
-            setExpand(!expand);
+
+            for (const id in expanded) {
+              dispatch(expand({ id, expand: !expandedGlobal}))
+            }
+            setExpand(!expandedGlobal);
           }}
           className={` flex flex-row items-center text-base gap-2 border border-gray-150 rounded-lg py-2.5 px-3 bg-white`}
         >
-          <span>{!expand ? 'Expand' : 'Hide'} all </span>
+          <span>{!expandedGlobal ? 'Expand' : 'Hide'} all </span>
           <svg
             width="8"
             height="14"
             viewBox="0 0 8 14"
             fill="none"
+            className={'text-black-100 dark:text-white'}
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M1.3891 9.11102C1.17432 8.89623 0.826075 8.89623 0.611287 9.11102C0.396499 9.32581 0.396499 9.67405 0.611287 9.88883L3.61129 12.8888C3.82608 13.1036 4.17432 13.1036 4.3891 12.8888L7.38911 9.88883C7.60389 9.67405 7.60389 9.3258 7.38911 9.11102C7.17432 8.89623 6.82608 8.89623 6.61129 9.11102L4.0002 11.7221L1.3891 9.11102Z"
-              fill="#333333"
+              fill="currentColor"
             />
             <path
               d="M6.61129 4.88883C6.82607 5.10362 7.17431 5.10362 7.3891 4.88883C7.60389 4.67405 7.60389 4.3258 7.3891 4.11102L4.3891 1.11102C4.18281 0.904727 3.81758 0.904726 3.61129 1.11102L0.611287 4.11102C0.396498 4.32581 0.396498 4.67405 0.611287 4.88883C0.826075 5.10362 1.17432 5.10362 1.3891 4.88883L4.00019 2.27774L6.61129 4.88883Z"
-              fill="#333333"
+              fill="currentColor"
             />
           </svg>
         </button>

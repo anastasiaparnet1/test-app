@@ -20,10 +20,24 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
 
+  @media (prefers-color-scheme: light) {
+    color-scheme: light;
+    .bg-white{
+      background-color: white;
+
+    }
+  }
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
-    @apply bg-white dark:bg-gray-950;
+    .bg-white{
+      background-color:var(--color-black-150);
+    }
+    .bg-gray-50{
+      background-color: var(--color-gray-550);
+    }
+    .bg-gray-160{
+      background-color: var(--color-gray-300);
+    }
   }
 }

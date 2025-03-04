@@ -24,14 +24,23 @@ type JobSummary = {
 export const initialState: {
   report: { [key: string]: TestReport };
   filters: { [key: string]: Filter };
+  expand: { [key: string]: boolean };
   globalFilter: Filter;
   summary: JobSummary;
+
   columns: { [key: string]: FailureColumn[] };
 } = {
   report: report.logs.reduce((acc, log) => {
     return { ...acc, [log.test_case_id]: log };
   }, {}),
-  filters: report.logs.reduce((el, next)=> ({ ...el, [next.test_case_id] : 'all' }), {}),
+  expand: report.logs.reduce(
+    (el, next) => ({ ...el, [next.test_case_id]: false }),
+    {},
+  ),
+  filters: report.logs.reduce(
+    (el, next) => ({ ...el, [next.test_case_id]: 'all' }),
+    {},
+  ),
   globalFilter: 'all',
   summary: report.summary,
   columns: getColumns(),
@@ -41,6 +50,12 @@ export const reportSlice = createSlice({
   name: 'report',
   initialState,
   reducers: {
+    expand: (
+      state,
+      { payload }: PayloadAction<{ expand: boolean; id: string }>,
+    ) => {
+      state.expand[payload.id] = payload.expand;
+    },
     checkColumns: (
       state,
       action: PayloadAction<{ filter: FailureColumn[]; id: string }>,
@@ -67,12 +82,10 @@ export const reportSlice = createSlice({
         payload,
       }: PayloadAction<{ filter: Filter; id: string; global: boolean }>,
     ) => {
-
       if (payload.global) {
         state.globalFilter = payload.filter;
         state.filters[payload.id] = payload.filter;
-      }
-      else if (!payload.global)  state.filters[payload.id] = payload.filter;
+      } else if (!payload.global) state.filters[payload.id] = payload.filter;
       if (payload.filter === 'failed') {
         state.report[payload.id].data_mismatch = initialState.report[
           payload.id
@@ -148,7 +161,7 @@ export const reportSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { filterReport, checkColumns, search, setFilter } =
+export const { expand, filterReport, checkColumns, search, setFilter } =
   reportSlice.actions;
 
 export const reportReducer = reportSlice.reducer;

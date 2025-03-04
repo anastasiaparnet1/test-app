@@ -2,8 +2,9 @@ import { Chip } from './Chips';
 import { type FC, useEffect, useState } from 'react';
 import { ExpandedContent } from '~/report/components/ExpandedContent';
 import { Event, eventemmiiter } from '~/report/eventemmiiter';
-import { useAppSelector } from '~/redux/store';
-import {CheckedIcon} from "~/report/components/icons/CheckedIcon";
+import { useAppDispatch, useAppSelector } from '~/redux/store';
+import { CheckedIcon } from '~/report/components/icons/CheckedIcon';
+import { expand } from '~/redux/report/report.slice';
 export interface QueryHash {
   source_file: boolean;
   target_file: boolean;
@@ -56,22 +57,15 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
     query_hash,
     source_data_count,
     target_data_count,
-
   },
 }) => {
+  const dispatch = useAppDispatch();
   const filter = useAppSelector((state) => state.report.filters);
-  const [expand, setExpand] = useState(false);
+  const expanded = useAppSelector((state) => state.report.expand[test_case_id]);
   const onClick = () => {
-    setExpand((prevState) => !prevState);
+    dispatch(expand({ id: test_case_id, expand: !expanded }));
   };
-  useEffect(() => {
-    eventemmiiter.on(Event.EXPAND, (globalExpand: boolean) =>
-      setExpand(globalExpand),
-    );
-    return () => {
-      eventemmiiter.removeAllListeners(Event.EXPAND);
-    };
-  });
+
   const isCountFailed = target_data_count === source_data_count;
   const isDataFailed = data_mismatch?.some((el) => el.mismatch.length);
   const hide =
@@ -79,13 +73,15 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
     (filter[test_case_id] === 'failed data' && isDataFailed);
   return (
     <tr
-      className={`border w-full border-gray-100 ${expand ? 'bg-gray-50' : ''} ${
+      className={`border  border-gray-100 ${expanded ? 'bg-gray-50' : ''} ${
         hide ? 'hidden' : ''
       }`}
     >
       <td>
         <div
-          className={'flex flex-col lg:flex-row  justify-between items-center gap-2 px-3 py-2 lg:h-[60px] pr-2 '}
+          className={
+            'flex flex-col lg:flex-row  justify-between items-center gap-2 px-3 py-2 lg:h-[60px] pr-2 '
+          }
           onClick={onClick}
         >
           <div className={'flex flex-row  items-center gap-2 px-3 py-2 h-60px'}>
@@ -95,7 +91,7 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
               viewBox="0 0 6 10"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={`${expand ? 'rotate-90' : ''}`}
+              className={`${expanded ? 'rotate-90' : ''}`}
             >
               <path
                 fillRule="evenodd"
@@ -112,22 +108,28 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
 
             <p className={'text-sm'}> Test case name: {test_case_name}</p>
           </div>
-          <div className={'text-xs border border-gray-150 rounded-2xl flex ' }>
-            <p className={'font-semibold flex py-[7px] px-3 gap-1 border-r border-gray-150 '}>
+          <div className={'text-xs border border-gray-150 rounded-2xl flex '}>
+            <p
+              className={
+                'font-semibold flex py-[7px] px-3 gap-1 border-r border-gray-150 '
+              }
+            >
               <CheckedIcon /> Data Check{' '}
             </p>
             <p className={'py-[7px] px-3 border-r border-gray-150 '}>
-              Source: <span className={'font-semibold'}> {source_data_count}</span>
+              Source:{' '}
+              <span className={'font-semibold'}> {source_data_count}</span>
             </p>
             <p className={'py-[7px] px-3'}>
-              Target: <span className={'font-semibold'}> {target_data_count}</span>
+              Target:{' '}
+              <span className={'font-semibold'}> {target_data_count}</span>
             </p>
           </div>
         </div>
 
         <div
           className={`${
-            expand ? 'h-fit' : ' h-0'
+            expanded ? 'h-fit' : ' h-0'
           } flex flex-col overflow-hidden  gap-2 w-full`}
         >
           <ExpandedContent

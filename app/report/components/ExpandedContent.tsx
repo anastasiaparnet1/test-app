@@ -27,7 +27,7 @@ export const ExpandedContent: FC<{
   }, [columns]);
 
   return (
-    <div className={'w-full'}>
+    <div className={'w-full py-2'}>
       <div
         className={
           'flex gap-2 my-2 text-[13px] border-b border-gray-250 pl-[46px]'
@@ -69,7 +69,7 @@ export const ExpandedContent: FC<{
             onClick={() =>
                dispatch( checkColumns( { id: testCaseId,  filter: columns.map(el=> ({...el, checked: true}))}))
             }
-            className={` border w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-center text-xs`}
+            className={` border w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-center text-xs dark:bg-black dark:text-white dark:border-black`}
           >
             Select all
           </p>
@@ -77,7 +77,7 @@ export const ExpandedContent: FC<{
             onClick={() =>
                 dispatch( checkColumns( { id: testCaseId,  filter: columns.map(el=> ({...el, checked: false}))}))
             }
-            className={`border border-red-500 w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-red-500 text-center text-xs`}
+            className={`border border-red-500 w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-red-500 text-center text-xs dark:bg-red-500 dark:text-white`}
           >
             Cancel all
           </p>
@@ -96,16 +96,16 @@ export const ExpandedContent: FC<{
             );
           })}
         </div>
-        <div className={'w-screen pl-[46px]'}>
+        <div className={'w-full pl-[46px]'}>
           <TestReportTable data_mismatch={data_mismatch} />
         </div>
       </div>
       <div
-        className={`${activeTab === 'details' ? 'h-full' : 'h-0'} box-border`}
+        className={`${activeTab === 'details' ? 'h-full' : 'h-0'} box-border `}
       >
         <div className={'w-full'}>
           <div className={'h-full pl-[46px] py-4 overflow-x-auto min-h-[600px]' }>
-            <table className={'border-none bg-white w-full text-gray-550' }>
+            <table className={'border-none bg-white w-full text-gray-550 dark:text-white dark:bg-red-100' }>
               <thead className="font-normal border-none ">
                 <tr className="text-xs">
                   <th className="border text-start border-gray-100 py-1 px-4 font-normal w-[15%] uppercase">
@@ -117,7 +117,7 @@ export const ExpandedContent: FC<{
                 </tr>
               </thead>
 
-              <tbody className={'text-black-150'}>
+              <tbody className={'text-black-150 dark:text-white'}>
                 <tr className={'text-xs border border-gray-100 py-1 px-4'}>
                   <td className={'border border-gray-100 py-1 px-4 flex '}>
                     <SourceIcon /> Source Record
