@@ -13,7 +13,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
   return (
     <div
       className={
-        'flex flex-col gap-2 lg:flex-row w-full border-b border-gray-350 py-2 justify-between pr-1.5 pl-[46px]'
+        'flex flex-col gap-2 lg:flex-row w-full border-b border-gray-350 py-2 justify-between items-center pr-1.5 pl-[46px]'
       }
     >
       <div className={'flex gap-3 text-xs'}>

@@ -34,7 +34,7 @@ const expanded = useAppSelector(state => state.report.expand)
           'flex flex-col  p-4 justify-between   lg:flex-row gap-2'
         }
       >
-        <div className={'flex gap-3 flex-col text-xs lg:flex-row'}>
+        <div className={'flex gap-3 flex-col text-xs lg:flex-row '}>
           <button
             onClick={() => {
               for (const testCaseId in reports) {
