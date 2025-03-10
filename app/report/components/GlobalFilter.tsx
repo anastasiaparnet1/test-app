@@ -31,7 +31,7 @@ const expanded = useAppSelector(state => state.report.expand)
     <div>
       <div
         className={
-          'flex flex-col  py-2 justify-between py-2 px-3 lg:flex-row gap-2'
+          'flex flex-col  p-4 justify-between   lg:flex-row gap-2'
         }
       >
         <div className={'flex gap-3 flex-col text-xs lg:flex-row'}>
@@ -49,7 +49,7 @@ const expanded = useAppSelector(state => state.report.expand)
                 : 'bg-blue-250 text-white  border-blue-250'
             }`}
           >
-            All Checks {counter.pass + counter.fail}
+            All {counter.pass + counter.fail}
           </button>
           <button
             onClick={() => {
@@ -101,6 +101,7 @@ const expanded = useAppSelector(state => state.report.expand)
             </svg>
             <span>Failed Only {counter.fail}</span>
           </button>
+          <div className={'h-full border-gray-light border-[1px]'}> </div>
           <button
             onClick={() => {
               for (const testCaseId in reports) {
@@ -182,9 +183,9 @@ const expanded = useAppSelector(state => state.report.expand)
             }
             setExpand(!expandedGlobal);
           }}
-          className={` flex flex-row items-center text-base gap-2 border border-gray-150 rounded-lg py-2.5 px-3 bg-white`}
+          className={` flex flex-row items-center text-sm gap-2 border border-gray-150 rounded-lg py-2 px-2 bg-white`}
         >
-          <span>{!expandedGlobal ? 'Expand' : 'Hide'} all </span>
+          <span className={'text-black-light font-medium'}>{!expandedGlobal ? 'Expand' : 'Hide'} All </span>
           <svg
             width="8"
             height="14"

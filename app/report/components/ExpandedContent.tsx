@@ -8,8 +8,8 @@ import { TestReportTable } from '~/report/components/TestReportTable';
 import { Filters } from '~/report/components/Filters';
 import { SourceIcon } from '~/report/components/icons/SourceIcon';
 import { TargetIcon } from '~/report/components/icons/TargetIcon';
-import {useAppDispatch, useAppSelector} from '~/redux/store';
-import {checkColumns, filterReport} from '~/redux/report/report.slice';
+import { useAppDispatch, useAppSelector } from '~/redux/store';
+import { checkColumns, filterReport } from '~/redux/report/report.slice';
 
 export const ExpandedContent: FC<{
   data_mismatch?: RecordType[];
@@ -20,24 +20,21 @@ export const ExpandedContent: FC<{
     'dataCheck',
   );
   const dispatch = useAppDispatch();
-  const  columns = useAppSelector(state => state.report.columns[testCaseId])
+  const columns = useAppSelector((state) => state.report.columns[testCaseId]);
   useEffect(() => {
-    if (columns)
-    dispatch(filterReport({ id: testCaseId, filters: columns }));
+    if (columns) dispatch(filterReport({ id: testCaseId, filters: columns }));
   }, [columns]);
 
   return (
     <div className={'w-full py-2'}>
       <div
-        className={
-          'flex gap-2 my-2 text-[13px] border-b border-gray-250 pl-[46px]'
-        }
+        className={'flex gap-2  text-[13px] border-b border-gray-250 pl-[46px]'}
       >
         <div
           onClick={() => setActiveTab('dataCheck')}
           className={` cursor-pointer transition-all delay-50 duration-200 ${
             activeTab === 'dataCheck'
-                ? 'border-blue-250 font-semibold text-blue-250 border-b-2'
+              ? 'border-blue-250 font-semibold text-blue-250 border-b-2'
               : ''
           } `}
         >
@@ -61,40 +58,69 @@ export const ExpandedContent: FC<{
         } box-border w-full`}
       >
         <Filters testId={testCaseId} />
-        <div className={'flex flex-row gap-1 items-center pl-[46px] py-2 flex-wrap'}>
+        <div
+          className={
+            'flex flex-row gap-1 items-center pl-[46px] py-4 flex-wrap'
+          }
+        >
           <span className={'text-sm text-black-100 font-semibold'}>
             Failure Columns:
           </span>
-          <p
-            onClick={() =>
-               dispatch( checkColumns( { id: testCaseId,  filter: columns.map(el=> ({...el, checked: true}))}))
-            }
-            className={` border w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-center text-xs dark:bg-black dark:text-white dark:border-black`}
-          >
-            Select all
-          </p>
-          <p
-            onClick={() =>
-                dispatch( checkColumns( { id: testCaseId,  filter: columns.map(el=> ({...el, checked: false}))}))
-            }
-            className={`border border-red-500 w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-red-500 text-center text-xs dark:bg-red-500 dark:text-white`}
-          >
-            Cancel all
-          </p>
+
+
           {columns?.map((el) => {
             return (
-              <Chip
-                key={el.value}
-                value={ el.value+ ' ' + el.count}
-                type={'fail'}
-                checked={el.checked}
+              <p
                 onClick={() =>
-                    dispatch( checkColumns( { id: testCaseId,  filter: [{...el, checked: !el.checked}]}))
-
+                  dispatch(
+                    checkColumns({
+                      id: testCaseId,
+                      filter: [{ ...el, checked: !el.checked }],
+                    }),
+                  )
                 }
-              />
+                className={`${
+                  el.checked === undefined || el.checked
+                    ? ' bg-fail text-white'
+                    : ' bg-fail/2  text-black'
+                } border w-fit min-w-[56px] px-2.5 py-1 rounded-2xl text-center text-xs cursor-pointer`}
+              >
+                {el.value}
+
+                <span className={'text-dark-red'}> {el.count}</span>
+              </p>
             );
           })}
+
+          <p className={'text-sm ml-5'}>
+            <span
+              className={'cursor-pointer underline\n'}
+              onClick={() =>
+                dispatch(
+                  checkColumns({
+                    id: testCaseId,
+                    filter: columns.map((el) => ({ ...el, checked: true })),
+                  }),
+                )
+              }
+            >
+              All
+            </span>{' '}
+            /{' '}
+            <span
+              className={'cursor-pointer underline'}
+              onClick={() =>
+                dispatch(
+                  checkColumns({
+                    id: testCaseId,
+                    filter: columns.map((el) => ({ ...el, checked: false })),
+                  }),
+                )
+              }
+            >
+              None
+            </span>{' '}
+          </p>
         </div>
         <div className={'w-full pl-[46px]'}>
           <TestReportTable data_mismatch={data_mismatch} />
@@ -104,8 +130,14 @@ export const ExpandedContent: FC<{
         className={`${activeTab === 'details' ? 'h-full' : 'h-0'} box-border `}
       >
         <div className={'w-full'}>
-          <div className={'h-full pl-[46px] py-4 overflow-x-auto min-h-[600px]' }>
-            <table className={'border-none bg-white w-full text-gray-550 dark:text-white dark:bg-red-100' }>
+          <div
+            className={'h-full pl-[46px] py-4 overflow-x-auto min-h-[600px]'}
+          >
+            <table
+              className={
+                'border-none bg-white w-full text-gray-550 dark:text-white dark:bg-red-100'
+              }
+            >
               <thead className="font-normal border-none ">
                 <tr className="text-xs">
                   <th className="border text-start border-gray-100 py-1 px-4 font-normal w-[15%] uppercase">

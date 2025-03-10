@@ -7,19 +7,19 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
   data_mismatch,
 }) => {
   return (
-    <div className="h-full w-full overflow-hidden">
+    <div className="h-full w-full overflow-hidden text-black-150">
       <table className="border-none w-full min-w-max table-auto dark:bg-gray-900">
         <thead className="font-normal border-none">
           <tr className="text-xs">
-            <th className="border border-gray-100 py-1 px-4 font-normal">
+            <th className="border border-gray-100 py-2.5 px-4 font-normal">
               INDEX
             </th>
-            <th className="border border-gray-100 py-1 px-4 font-normal">DB</th>
-            <th className="border border-gray-100 py-1 px-4 font-normal">ID</th>
-            <th className="border border-gray-100 py-1 px-4 font-normal">
+            <th className="border border-gray-100 py-2.5 px-4 font-normal">DB</th>
+            <th className="border border-gray-100 py-2.5 px-4 font-normal">ID</th>
+            <th className="border border-gray-100 py-2.5 px-4 font-normal">
               USER_ID
             </th>
-            <th className="border border-gray-100 py-1 px-4 font-normal">
+            <th className="border border-gray-100 py-2.5 px-4 font-normal">
               NAME
             </th>
             <th className="border border-gray-100 py-1 px-4 font-normal">
@@ -29,25 +29,24 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
               WEBSITE
             </th>
           </tr>
-          <tr className="text-xs h-6 border-none"></tr>
         </thead>
 
         <tbody
           className={
-            '[&>*:nth-child(3n)]:bg-white dark:[&>*:nth-child(3n)]:bg-gray-800'
+            '[&>*:nth-child(4n+1)]:bg-white [&>*:nth-child(4n+2)]:bg-white dark:[&>*:nth-child(3n)]:bg-gray-800'
           }
         >
           {data_mismatch?.map((el, index, array) => {
             const targetRecord = index!==array.length-1 ? array[index + 1]: el
             return (
-              <tr key={index} className={'text-xs border border-gray-100'}>
+              <tr key={index} className={'text-table border border-gray-100'}>
                 <td
                   className={`${
                     targetRecord.mismatch.includes('INDEX') ||
                     el.mismatch?.includes('INDEX')
-                      ? 'bg-fail'
+                      ? 'bg-red-light'
                       : ''
-                  } border border-gray-100 dark:border-gray-700 py-1 px-4`}
+                  } border border-gray-100 dark:border-gray-700 py-2.5 px-4`}
                 >
                   {' '}
                   {el.INDEX}
@@ -56,7 +55,7 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
                   className={`${
                     targetRecord.mismatch.includes('DB') ||
                     el.mismatch?.includes('DB')
-                      ? 'bg-fail'
+                        ? 'bg-red-light'
                       : ''
                   } border border-gray-100 dark:border-gray-700 py-1 px-4`}
                 >
@@ -74,7 +73,7 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
                   className={`${
                     targetRecord.mismatch.includes('ID') ||
                     el.mismatch?.includes('ID')
-                      ? 'bg-fail'
+                        ? 'bg-red-light'
                       : ''
                   } border border-gray-100 dark:border-gray-700 py-1 px-4`}
                 >
@@ -85,7 +84,7 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
                   className={`${
                     targetRecord.mismatch.includes('user_id') ||
                     el.mismatch?.includes('user_id')
-                      ? 'bg-fail'
+                        ? 'bg-red-light'
                       : ''
                   } border border-gray-100 dark:border-gray-600  py-1 px-4`}
                 >
@@ -96,7 +95,7 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
                   className={`${
                     targetRecord.mismatch.includes('name') ||
                     el.mismatch?.includes('name')
-                      ? 'bg-fail'
+                        ? 'bg-red-light'
                       : ''
                   } border border-gray-100 dark:border-gray-700 py-1 px-4`}
                 >
@@ -107,7 +106,7 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
                   className={`${
                     targetRecord.mismatch.includes('access') ||
                     el.mismatch?.includes('access')
-                      ? 'bg-fail'
+                        ? 'bg-red-light'
                       : ''
                   } border border-gray-100 dark:border-gray-700 py-1 px-4`}
                 >
@@ -118,7 +117,7 @@ export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
                   className={`${
                     targetRecord.mismatch.includes('website') ||
                     el.mismatch?.includes('website')
-                      ? 'bg-fail'
+                        ? 'bg-red-light'
                       : ''
                   } border border-gray-100 dark:border-gray-700  py-1 px-4`}
                 >

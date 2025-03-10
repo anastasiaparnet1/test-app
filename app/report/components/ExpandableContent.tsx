@@ -102,27 +102,27 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
             </svg>
 
             <Chip
-              value={fail !== 0 ? 'Fail' : 'Passed'}
+              value={fail !== 0 ? 'Failed' : 'Passed'}
               type={fail !== 0 ? 'fail' : 'success'}
             />
 
             <p className={'text-sm'}> Test case name: {test_case_name}</p>
           </div>
-          <div className={'text-xs border border-gray-150 rounded-2xl flex '}>
+          <div className={'text-xs border border-gray-150 rounded-2xl flex text-black-light '}>
             <p
               className={
-                'font-semibold flex py-[7px] px-3 gap-1 border-r border-gray-150 '
+                'font-medium flex py-[7px] px-3 gap-1 border-r border-gray-150 '
               }
             >
               <CheckedIcon /> Data Check{' '}
             </p>
             <p className={'py-[7px] px-3 border-r border-gray-150 '}>
               Source:{' '}
-              <span className={'font-semibold'}> {source_data_count}</span>
+              <span className={'font-medium'}> {source_data_count}</span>
             </p>
             <p className={'py-[7px] px-3'}>
               Target:{' '}
-              <span className={'font-semibold'}> {target_data_count}</span>
+              <span className={'font-medium'}> {target_data_count}</span>
             </p>
           </div>
         </div>
