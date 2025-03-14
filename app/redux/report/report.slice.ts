@@ -2,14 +2,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { TestReport } from '~/report/components/ExpandableContent';
 import report from '../../7718_20250123_135605_1.json';
-import { columnsNumbers, getColumns } from '~/redux/report/utils';
-import { Filters } from '~/report/components/Filters';
+import { getColumns } from '~/redux/report/utils';
 export type Filter =
   | 'all'
   | 'skipped'
   | 'failed'
   | 'failed count'
-  | 'failed data';
+  | 'failed data'
+  | 'passed';
 export type FailureColumn = { value: string; checked: boolean; count: number };
 type JobSummary = {
   job_start_time: string;
@@ -75,17 +75,36 @@ export const reportSlice = createSlice({
               )?.checked,
             };
       });
+      state.report[action.payload.id].data_mismatch = initialState.report[
+          action.payload.id
+          ].data_mismatch?.filter((el, index, arr) => {
+        return (
+            el.mismatch.some((elem) =>
+                state.columns[action.payload.id].some(
+                    (filter) => filter.checked && filter.value === elem,
+                ),
+            ) ||
+            (index !== arr.length - 1 &&
+                arr[index + 1].mismatch.some((elem) =>
+                    state.columns[action.payload.id].some(
+                        (filter) => filter.checked && filter.value === elem,
+                    ),
+                ))
+        );
+      });
+    },
+    setGlobalFilter: (
+      state,
+      { payload }: PayloadAction<{ filter: Filter }>,
+    ) => {
+      state.globalFilter = payload.filter;
     },
     setFilter: (
       state,
-      {
-        payload,
-      }: PayloadAction<{ filter: Filter; id: string; global: boolean }>,
+      { payload }: PayloadAction<{ filter: Filter; id: string }>,
     ) => {
-      if (payload.global) {
-        state.globalFilter = payload.filter;
-        state.filters[payload.id] = payload.filter;
-      } else if (!payload.global) state.filters[payload.id] = payload.filter;
+      state.filters[payload.id] = payload.filter;
+
       if (payload.filter === 'failed') {
         state.report[payload.id].data_mismatch = initialState.report[
           payload.id
@@ -97,7 +116,7 @@ export const reportSlice = createSlice({
               el.DB === 'Source Record')
           );
         });
-      } else if (payload.filter === 'skipped') {
+      } else if (payload.filter === 'passed') {
         state.report[payload.id].data_mismatch = initialState.report[
           payload.id
         ].data_mismatch?.filter((el, index, arr) => {
@@ -131,37 +150,18 @@ export const reportSlice = createSlice({
           initialState.report[payload.id].data_mismatch;
       }
     },
-    filterReport: (
-      state,
-      action: PayloadAction<{
-        id: string;
-        filters: FailureColumn[];
-      }>,
-    ) => {
-      console.log(action.payload);
-      state.report[action.payload.id].data_mismatch = initialState.report[
-        action.payload.id
-      ].data_mismatch?.filter((el, index, arr) => {
-        return (
-          el.mismatch.some((elem) =>
-            action.payload.filters.some(
-              (filter) => filter.checked && filter.value === elem,
-            ),
-          ) ||
-          (index !== arr.length - 1 &&
-            arr[index + 1].mismatch.some((elem) =>
-              action.payload.filters.some(
-                (filter) => filter.checked && filter.value === elem,
-              ),
-            ))
-        );
-      });
-    },
+
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { expand, filterReport, checkColumns, search, setFilter } =
-  reportSlice.actions;
+export const {
+  expand,
+
+  checkColumns,
+  search,
+  setGlobalFilter,
+  setFilter,
+} = reportSlice.actions;
 
 export const reportReducer = reportSlice.reducer;

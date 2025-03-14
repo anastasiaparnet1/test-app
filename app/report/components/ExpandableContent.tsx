@@ -19,6 +19,7 @@ export interface QueryHash {
 export interface ResultCounter {
   pass: number;
   fail: number;
+  skipped?: number;
 }
 export type RecordType = {
   INDEX: number;
@@ -50,7 +51,7 @@ export interface TestReport {
 
 export const ExpandableContent: FC<{ props: TestReport }> = ({
   props: {
-    result_counter: { fail, pass },
+    result_counter: { fail, pass, skipped },
     test_case_name,
     test_case_id,
     data_mismatch,
@@ -60,7 +61,8 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
   },
 }) => {
   const dispatch = useAppDispatch();
-  const filter = useAppSelector((state) => state.report.filters);
+  const filter = useAppSelector((state) => state.report.filters[test_case_id]);
+  const globalFilter = useAppSelector((state) => state.report.globalFilter);
   const expanded = useAppSelector((state) => state.report.expand[test_case_id]);
   const onClick = () => {
     dispatch(expand({ id: test_case_id, expand: !expanded }));
@@ -68,13 +70,21 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
 
   const isCountFailed = target_data_count === source_data_count;
   const isDataFailed = data_mismatch?.some((el) => el.mismatch.length);
-  const hide =
-    (filter[test_case_id] === 'failed count' && isCountFailed) ||
-    (filter[test_case_id] === 'failed data' && isDataFailed);
+  const isPassed = pass > 0 && !fail && !skipped && globalFilter === 'passed';
+  const isFailed = fail > 0 && globalFilter === 'failed';
+  const isSkipped =
+    skipped && skipped >= 0 && !isFailed && !isPassed && globalFilter === 'skipped';
+  const show =
+    (globalFilter === 'failed count' && isCountFailed) ||
+    (globalFilter === 'failed data' && isDataFailed) ||
+    isPassed ||
+    isFailed ||
+    isSkipped;
+
   return (
     <tr
       className={`border  border-gray-100 ${expanded ? 'bg-gray-50' : ''} ${
-        hide ? 'hidden' : ''
+        globalFilter !== 'all' && !show ? 'hidden' : ''
       }`}
     >
       <td>
@@ -108,7 +118,11 @@ export const ExpandableContent: FC<{ props: TestReport }> = ({
 
             <p className={'text-sm'}> Test case name: {test_case_name}</p>
           </div>
-          <div className={'text-xs border border-gray-150 rounded-2xl flex text-black-light '}>
+          <div
+            className={
+              'text-xs border border-gray-150 rounded-2xl flex text-black-light '
+            }
+          >
             <p
               className={
                 'font-medium flex py-[7px] px-3 gap-1 border-r border-gray-150 '

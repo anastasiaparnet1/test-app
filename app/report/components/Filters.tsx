@@ -19,7 +19,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
       <div className={'flex gap-3 text-xs'}>
         <button
           onClick={() =>
-            dispatch(setFilter({ filter: 'all', id: testId, global: false }))
+            dispatch(setFilter({ filter: 'all', id: testId }))
           }
           className={`border border-gray-150 rounded-lg py-2.5 px-3 ${
             filter !== 'all' ? 'bg-gray-160 text-gray-500 ' : 'bg-white'
@@ -28,7 +28,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
           All Checks {counter.fail + counter.pass}
         </button>
         <button
-          onClick={() => dispatch(setFilter({ filter: 'failed', id: testId, global: false }))}
+          onClick={() => dispatch(setFilter({ filter: 'failed', id: testId, }))}
           className={`flex items-center gap-1 border border-gray-150 rounded-lg py-2.5 px-3 ${
             filter !== 'failed' ? 'bg-gray-160 text-gray-500 ' : 'bg-white'
           }`}
@@ -37,7 +37,7 @@ export const Filters: FC<{ testId: string }> = ({ testId }) => {
           <span>Failed Only {counter.fail}</span>
         </button>
         <button
-          onClick={() => dispatch(setFilter({ filter: 'skipped', id: testId, global:false }))}
+          onClick={() => dispatch(setFilter({ filter: 'passed', id: testId, }))}
           className={` flex items-center gap-1 border border-gray-150 rounded-lg py-2.5 px-3 ${
             filter !== 'skipped' ? 'bg-gray-160 text-gray-500 ' : 'bg-white '
           }`}

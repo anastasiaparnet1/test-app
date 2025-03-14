@@ -9,7 +9,7 @@ import { Filters } from '~/report/components/Filters';
 import { SourceIcon } from '~/report/components/icons/SourceIcon';
 import { TargetIcon } from '~/report/components/icons/TargetIcon';
 import { useAppDispatch, useAppSelector } from '~/redux/store';
-import { checkColumns, filterReport } from '~/redux/report/report.slice';
+import { checkColumns } from '~/redux/report/report.slice';
 
 export const ExpandedContent: FC<{
   data_mismatch?: RecordType[];
@@ -21,9 +21,7 @@ export const ExpandedContent: FC<{
   );
   const dispatch = useAppDispatch();
   const columns = useAppSelector((state) => state.report.columns[testCaseId]);
-  useEffect(() => {
-    if (columns) dispatch(filterReport({ id: testCaseId, filters: columns }));
-  }, [columns]);
+
 
   return (
     <div className={'w-full py-2'}>
@@ -67,10 +65,10 @@ export const ExpandedContent: FC<{
             Failure Columns:
           </span>
 
-
           {columns?.map((el) => {
             return (
               <p
+                key={el.value}
                 onClick={() =>
                   dispatch(
                     checkColumns({

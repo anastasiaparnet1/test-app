@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import {type FC, useEffect} from 'react';
 import type { RecordType } from '~/report/components/ExpandableContent';
 import { TargetIcon } from '~/report/components/icons/TargetIcon';
 import { SourceIcon } from '~/report/components/icons/SourceIcon';
@@ -6,6 +6,9 @@ import { SourceIcon } from '~/report/components/icons/SourceIcon';
 export const TestReportTable: FC<{ data_mismatch?: RecordType[] }> = ({
   data_mismatch,
 }) => {
+  useEffect(() => {
+    console.log(data_mismatch?.length)
+  }, [data_mismatch]);
   return (
     <div className="h-full w-full overflow-hidden text-black-150">
       <table className="border-none w-full min-w-max table-auto dark:bg-gray-900">

@@ -1,12 +1,15 @@
-import {expand, setFilter} from '~/redux/report/report.slice';
+import {
+  expand,
+  setFilter,
+  setGlobalFilter,
+} from '~/redux/report/report.slice';
 import { useAppDispatch, useAppSelector } from '~/redux/store';
-import { Event, eventemmiiter } from '~/report/eventemmiiter';
 import { useEffect, useState } from 'react';
 
 export const GlobalFilter = () => {
   const dispatch = useAppDispatch();
   const filter = useAppSelector((state) => state.report.globalFilter);
-const expanded = useAppSelector(state => state.report.expand)
+  const expanded = useAppSelector((state) => state.report.expand);
   const reports = useAppSelector((state) => state.report.report);
 
   const counter = Object.values(reports).reduce(
@@ -29,19 +32,11 @@ const expanded = useAppSelector(state => state.report.expand)
 
   return (
     <div>
-      <div
-        className={
-          'flex flex-col  p-4 justify-between   lg:flex-row gap-2'
-        }
-      >
+      <div className={'flex flex-col  p-4 justify-between   lg:flex-row gap-2'}>
         <div className={'flex gap-3 flex-col text-xs lg:flex-row '}>
           <button
             onClick={() => {
-              for (const testCaseId in reports) {
-                dispatch(
-                  setFilter({ filter: 'all', id: testCaseId, global: true }),
-                );
-              }
+              dispatch(setGlobalFilter({ filter: 'all' }));
             }}
             className={`border rounded-lg py-2.5 px-3 ${
               filter !== 'all'
@@ -53,9 +48,7 @@ const expanded = useAppSelector(state => state.report.expand)
           </button>
           <button
             onClick={() => {
-              for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'failed', id: testCaseId, global: true }));
-              }
+              dispatch(setGlobalFilter({ filter: 'failed' }));
             }}
             className={`flex items-center gap-1 border rounded-lg py-2.5 px-3 ${
               filter !== 'failed'
@@ -104,9 +97,7 @@ const expanded = useAppSelector(state => state.report.expand)
           <div className={'h-full border-gray-light border-[1px]'}> </div>
           <button
             onClick={() => {
-              for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'skipped', id: testCaseId, global: true }));
-              }
+              dispatch(setGlobalFilter({ filter: 'skipped' }));
             }}
             className={` flex items-center gap-1 border rounded-lg py-2.5 px-3 ${
               filter !== 'skipped'
@@ -147,9 +138,7 @@ const expanded = useAppSelector(state => state.report.expand)
           </button>
           <button
             onClick={() => {
-              for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'failed count', id: testCaseId, global: true }));
-              }
+              dispatch(setGlobalFilter({ filter: 'failed count' }));
             }}
             className={` flex items-center gap-1 border  rounded-lg py-2.5 px-3 ${
               filter !== 'failed count'
@@ -161,9 +150,7 @@ const expanded = useAppSelector(state => state.report.expand)
           </button>
           <button
             onClick={() => {
-              for (const testCaseId in reports) {
-                dispatch(setFilter({ filter: 'failed data', id: testCaseId , global: true}));
-              }
+              dispatch(setGlobalFilter({ filter: 'failed data' }));
             }}
             className={` flex items-center gap-1 border rounded-lg py-2.5 px-3 ${
               filter !== 'failed data'
@@ -177,15 +164,16 @@ const expanded = useAppSelector(state => state.report.expand)
 
         <button
           onClick={() => {
-
             for (const id in expanded) {
-              dispatch(expand({ id, expand: !expandedGlobal}))
+              dispatch(expand({ id, expand: !expandedGlobal }));
             }
             setExpand(!expandedGlobal);
           }}
           className={` flex flex-row items-center text-sm gap-2 border border-gray-150 rounded-lg py-2 px-2 bg-white`}
         >
-          <span className={'text-black-light font-medium'}>{!expandedGlobal ? 'Expand' : 'Hide'} All </span>
+          <span className={'text-black-light font-medium'}>
+            {!expandedGlobal ? 'Expand' : 'Hide'} All{' '}
+          </span>
           <svg
             width="8"
             height="14"

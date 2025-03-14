@@ -39,6 +39,16 @@
           "access": "Private",
           "website": "https://awetest.com",
           "mismatch": []
+        },
+        {
+          "INDEX": 1,
+          "DB": "Source Record",
+          "ID": 1,
+          "user_id": 12,
+          "name": "Harris-McDermott",
+          "access": "Private",
+          "website": "https://awetest.com",
+          "mismatch": []
         }
       ],
       "data_check_end_time": "2025-01-23T13:56:10.934-08:00",
@@ -1916,7 +1926,8 @@
       "data_check_start_time": "2025-01-23T13:56:15.370-08:00",
       "data_check_end_time": "2025-01-23T13:56:15.729-08:00",
       "data_check_time_taken": 0.359,
-      "test_end_time": "2025-01-23T13:56:15.761-08:00"
+      "test_end_time": "2025-01-23T13:56:15.761-08:00",
+      "data_mismatch": []
     }
   ]
 }
