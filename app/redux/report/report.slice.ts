@@ -76,20 +76,20 @@ export const reportSlice = createSlice({
             };
       });
       state.report[action.payload.id].data_mismatch = initialState.report[
-          action.payload.id
-          ].data_mismatch?.filter((el, index, arr) => {
+        action.payload.id
+      ].data_mismatch?.filter((el, index, arr) => {
         return (
-            el.mismatch.some((elem) =>
-                state.columns[action.payload.id].some(
-                    (filter) => filter.checked && filter.value === elem,
-                ),
-            ) ||
-            (index !== arr.length - 1 &&
-                arr[index + 1].mismatch.some((elem) =>
-                    state.columns[action.payload.id].some(
-                        (filter) => filter.checked && filter.value === elem,
-                    ),
-                ))
+          el.mismatch.some((elem) =>
+            state.columns[action.payload.id].some(
+              (filter) => filter.checked && filter.value === elem,
+            ),
+          ) ||
+          (index !== arr.length - 1 &&
+            arr[index + 1].mismatch.some((elem) =>
+              state.columns[action.payload.id].some(
+                (filter) => filter.checked && filter.value === elem,
+              ),
+            ))
         );
       });
     },
@@ -142,7 +142,10 @@ export const reportSlice = createSlice({
         ].data_mismatch?.filter((el) => {
           return Object.entries(el).some(
             ([key, value]) =>
-              typeof value === 'string' && value.includes(payload.search),
+              (typeof value === 'string' || typeof value === 'number') &&
+              String(value)
+                .toLowerCase()
+                .includes(payload.search.toLowerCase()),
           );
         });
       } else {
@@ -150,7 +153,6 @@ export const reportSlice = createSlice({
           initialState.report[payload.id].data_mismatch;
       }
     },
-
   },
 });
 
